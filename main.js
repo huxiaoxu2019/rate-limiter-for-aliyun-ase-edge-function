@@ -19,7 +19,7 @@ const BLOCK_DURATIONS = [300, 600, 1800, 3600, 86400]; // 5 minutes, 10 minutes,
 // ==== Key 构造器 ====
 
 function makeRateLimitKey(ip) {
-  return `http://xxcoding.com/${ip}_7`;
+  return `http://demo.com/${ip}_7`;
 }
 
 // ==== 工具函数 ====
@@ -140,7 +140,11 @@ async function handleRequest(request) {
       rateLimitData.blockedUntil = now + duration;
       rateLimitData.blockedDuration = duration;
 
-      await saveRateLimitDataToCache(rateLimitKey, rateLimitData, FUNNEL_KEY_TTL);
+      await saveRateLimitDataToCache(
+        rateLimitKey,
+        rateLimitData,
+        FUNNEL_KEY_TTL
+      );
 
       return new Response("Too Many Requests", {
         status: 429,
